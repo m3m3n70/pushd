@@ -33,6 +33,8 @@ if settings.logging?
 if settings.server?.redis_auth?
     redis.auth(settings.server.redis_auth)
 
+logger.verbose "Initializing with settings: " + JSON.stringify(settings)
+
 createSubscriber = (fields, cb) ->
     logger.verbose "creating subscriber proto = #{fields.proto}, token = #{fields.token}"
     throw new Error("Invalid value for `proto'") unless service = pushServices.getService(fields.proto)

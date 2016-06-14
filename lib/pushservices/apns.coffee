@@ -8,7 +8,7 @@ class PushServiceAPNS
 
     constructor: (conf, @logger, tokenResolver) ->
         conf.errorCallback = (errCode, note) =>
-            @logger?.error("APNS Error #{errCode}: #{note}")
+            @logger?.error("APNS Error #{errCode}: #{if typeof note === 'object' then JSON.stringify(note) else note}")
 
         # The APN library decided to change the default version of those variables in 1.5.1
         # Maintain the previous defaults in order not to break backward compat.
@@ -17,7 +17,7 @@ class PushServiceAPNS
         @driver = new apns.Connection(conf)
 
         @payloadFilter = conf.payloadFilter
-        
+
         @conf = conf
 
         @feedback = new apns.Feedback(conf)
@@ -43,7 +43,7 @@ class PushServiceAPNS
             badge = parseInt(payload.badge || info.badge)
             if payload.incrementBadge
                 badge += 1
-            
+
             category = payload.category
             contentAvailable = payload.contentAvailable
 
