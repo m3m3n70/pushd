@@ -8,7 +8,7 @@ class PushServiceAPNS
 
     constructor: (conf, @logger, tokenResolver) ->
         conf.errorCallback = (errCode, note) =>
-            @logger?.error("APNS Error #{errCode}: #{if typeof note === 'object' then JSON.stringify(note) else note}")
+            @logger?.error("APNS Error #{errCode}: #{if typeof note is 'object' then JSON.stringify(note) else note}")
 
         # The APN library decided to change the default version of those variables in 1.5.1
         # Maintain the previous defaults in order not to break backward compat.
