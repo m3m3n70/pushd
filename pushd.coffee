@@ -33,7 +33,7 @@ if settings.logging?
 if settings.server?.redis_auth?
     redis.auth(settings.server.redis_auth)
 
-logger.verbose "Initializing with settings: " + JSON.stringify(settings)
+logger.verbose "Initializing with settings: " + JSON.stringify(settings, null, 2)
 
 createSubscriber = (fields, cb) ->
     logger.verbose "creating subscriber proto = #{fields.proto}, token = #{fields.token}"
